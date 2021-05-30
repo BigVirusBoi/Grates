@@ -1,0 +1,7 @@
+{
+  "parent": "grates:block/grate",
+  "textures": {
+	"grate": "grates:block/iron_grate",
+	"particle": "grates:block/iron_grate"
+  }
+}

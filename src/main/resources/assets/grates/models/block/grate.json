@@ -1,0 +1,72 @@
+{
+  "parent": "block/block",
+  "elements": [
+	{
+	  "from": [0, 13, 0],
+	  "to": [16, 16, 2],
+	  "faces": {
+		"north": {"uv": [0, 0, 16, 3], "texture": "#grate"},
+		"east": {"uv": [14, 0, 16, 3], "texture": "#grate"},
+		"south": {"uv": [0, 0, 16, 3], "texture": "#grate"},
+		"west": {"uv": [0, 0, 2, 3], "texture": "#grate"},
+		"up": {"uv": [0, 0, 16, 2], "texture": "#grate"},
+		"down": {"uv": [0, 14, 16, 16], "texture": "#grate"}
+	  }
+	},
+	{
+	  "from": [0, 13, 14],
+	  "to": [16, 16, 16],
+	  "faces": {
+		"north": {"uv": [0, 0, 16, 3], "texture": "#grate"},
+		"east": {"uv": [0, 0, 2, 3], "texture": "#grate"},
+		"south": {"uv": [0, 0, 16, 3], "texture": "#grate"},
+		"west": {"uv": [14, 0, 16, 3], "texture": "#grate"},
+		"up": {"uv": [0, 14, 16, 16], "texture": "#grate"},
+		"down": {"uv": [0, 0, 16, 2], "texture": "#grate"}
+	  }
+	},
+	{
+	  "from": [0, 13, 2],
+	  "to": [2, 16, 14],
+	  "faces": {
+		"north": {"uv": [2, 0, 14, 3], "texture": "#grate"},
+		"east": {"uv": [0, 2, 3, 14], "texture": "#grate"},
+		"south": {"uv": [2, 0, 14, 3], "texture": "#grate"},
+		"west": {"uv": [2, 0, 14, 3], "texture": "#grate"},
+		"up": {"uv": [0, 2, 2, 14], "texture": "#grate"},
+		"down": {"uv": [0, 3, 2, 13], "texture": "#grate"}
+	  }
+	},
+	{
+	  "from": [14, 13, 2],
+	  "to": [16, 16, 14],
+	  "faces": {
+		"north": {"uv": [0, 0, 2, 3], "texture": "#grate"},
+		"east": {"uv": [2, 0, 14, 3], "texture": "#grate"},
+		"south": {"uv": [0, 0, 2, 3], "texture": "#grate"},
+		"west": {"uv": [2, 0, 14, 3], "texture": "#grate"},
+		"up": {"uv": [14, 2, 16, 14], "texture": "#grate"},
+		"down": {"uv": [14, 2, 16, 14], "texture": "#grate"}
+	  }
+	},
+	{
+	  "from": [1, 13.5, 1],
+	  "to": [15, 15.5, 15],
+	  "faces": {
+		"north": {"uv": [0, 0, 14, 2], "texture": "#grate"},
+		"east": {"uv": [0, 0, 14, 2], "texture": "#grate"},
+		"south": {"uv": [0, 0, 14, 2], "texture": "#grate"},
+		"west": {"uv": [0, 0, 14, 2], "texture": "#grate"},
+		"up": {"uv": [1, 1, 15, 15], "texture": "#grate"},
+		"down": {"uv": [1, 1, 15, 15], "texture": "#grate"}
+	  }
+	}
+  ],
+  "display": {
+	"gui": {
+	  "rotation": [ 30, 225, 0 ],
+	  "translation": [ 0, -4, 0],
+	  "scale":[ 0.625, 0.625, 0.625 ]
+	}
+  }
+}
