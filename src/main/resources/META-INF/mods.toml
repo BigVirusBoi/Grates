@@ -1,0 +1,14 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "GPL-3.0-only"
+issueTrackerURL="https://github.com/BigVirusBoi/Grates/issues"
+
+[[mods]]
+modId = "grates"
+version = "${file.jarVersion}"
+displayName = "Grates"
+#updateJSONURL="http://myurl.me/"
+#displayURL="http://example.com/"
+#logoFile="Grates.png"
+authors = "BigVirusBoi"
+description = '''A mod that adds grates!'''
