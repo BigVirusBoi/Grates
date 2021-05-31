@@ -3,7 +3,7 @@ package me.bigvirusboi.grates;
 import me.bigvirusboi.grates.block.GrateBlock;
 import me.bigvirusboi.grates.block.GrateType;
 import me.bigvirusboi.grates.inventory.container.GoldGrateContainer;
-import me.bigvirusboi.grates.tileentity.GrateTileEntity;
+import me.bigvirusboi.grates.tileentity.MetalGrateTileEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -27,8 +27,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Registries {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Grates.MOD_ID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Grates.MOD_ID);
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Grates.MOD_ID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Grates.MOD_ID);
+    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Grates.MOD_ID);
 
     public static final RegistryObject<Item> IRON_GRATE_ITEM = ITEMS.register("iron_grate", () ->
             new BlockItem(Registries.IRON_GRATE.get(), new Item.Properties().group(ItemGroup.REDSTONE)));
@@ -44,13 +44,14 @@ public class Registries {
                     .hardnessAndResistance(3.0F, 6.0F).sound(SoundType.METAL).notSolid()
                     .harvestTool(ToolType.PICKAXE).harvestLevel(2).setAllowsSpawn(Registries::neverAllowSpawn)));
 
-    public static final RegistryObject<ContainerType<GoldGrateContainer>> GOLD_GRATE_CONTAINER = CONTAINERS.register("gold_grate", () ->
-            IForgeContainerType.create(GoldGrateContainer::new));
-
-    public static final RegistryObject<TileEntityType<GrateTileEntity>> GRATE_TILE = TILE_ENTITIES.register("grate", () ->
-            TileEntityType.Builder.create(GrateTileEntity::new,
+    public static final RegistryObject<TileEntityType<MetalGrateTileEntity>> METAL_GRATE_TILE = TILE_ENTITIES.register("metal_grate", () ->
+            TileEntityType.Builder.create(MetalGrateTileEntity::new,
+                    Registries.IRON_GRATE.get(),
                     Registries.GOLD_GRATE.get()
             ).build(null));
+
+    public static final RegistryObject<ContainerType<GoldGrateContainer>> GOLD_GRATE_CONTAINER = CONTAINERS.register("gold_grate", () ->
+            IForgeContainerType.create(GoldGrateContainer::new));
 
 
 

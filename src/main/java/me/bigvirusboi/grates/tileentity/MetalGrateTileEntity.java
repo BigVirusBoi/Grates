@@ -2,14 +2,13 @@ package me.bigvirusboi.grates.tileentity;
 
 import me.bigvirusboi.grates.Registries;
 import me.bigvirusboi.grates.inventory.container.GoldGrateContainer;
-import me.bigvirusboi.grates.util.GrateUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
@@ -20,27 +19,32 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;
 
-public class GrateTileEntity extends LockableLootTileEntity implements ITickableTileEntity {
-    private Item filter = Items.AIR;
+public class MetalGrateTileEntity extends LockableLootTileEntity implements INamedContainerProvider, ITickableTileEntity {//TileEntity implements INamedContainerProvider, ITickableTileEntity, IItemHandler {
+    private NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 
-    public GrateTileEntity() {
-        this(Registries.GRATE_TILE.get());
+    public MetalGrateTileEntity() {
+        this(Registries.METAL_GRATE_TILE.get());
     }
 
-    public GrateTileEntity(TileEntityType<?> tileEntityTypeIn) {
+    public MetalGrateTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
 
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
         super.read(state, nbt);
-        this.filter = GrateUtils.readFilter(nbt);
+        this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
+        if (!this.checkLootAndRead(nbt)) {
+            ItemStackHelper.loadAllItems(nbt, this.inventory);
+        }
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
-        GrateUtils.writeFilter(compound, filter);
+        if (!this.checkLootAndWrite(compound)) {
+            ItemStackHelper.saveAllItems(compound, this.inventory, true);
+        }
         return compound;
     }
 
@@ -56,11 +60,11 @@ public class GrateTileEntity extends LockableLootTileEntity implements ITickable
 
     @Override
     public int getSizeInventory() {
-        return 1;
+        return this.inventory.size();
     }
 
-    public Item getFilterItem() {
-        return filter;
+    public ItemStack getFilterItem() {
+        return this.inventory.get(0);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class GrateTileEntity extends LockableLootTileEntity implements ITickable
         if (world != null) {
             List<ItemEntity> entities = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos).offset(0, 0.75, 0));
             for (ItemEntity entity : entities) {
-                if (getFilterItem() == Items.AIR || entity.getItem().getItem() == getFilterItem().getItem()) {
+                if (getFilterItem() == ItemStack.EMPTY || entity.getItem().getItem() == getFilterItem().getItem()) {
                     entity.setPosition(pos.getX() + .5, entity.getPosY() - 0.5, pos.getZ() + .5);
                     entity.setVelocity(0, 0, 0);
                 }
@@ -78,11 +82,11 @@ public class GrateTileEntity extends LockableLootTileEntity implements ITickable
 
     @Override
     protected NonNullList<ItemStack> getItems() {
-        return NonNullList.withSize(1, filter.getDefaultInstance());
+        return this.inventory;
     }
 
     @Override
     protected void setItems(NonNullList<ItemStack> itemsIn) {
-        this.filter = itemsIn.get(0).getItem();
+        this.inventory = itemsIn;
     }
 }

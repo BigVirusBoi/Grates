@@ -1,8 +1,7 @@
 package me.bigvirusboi.grates.inventory.container;
 
 import me.bigvirusboi.grates.Registries;
-import me.bigvirusboi.grates.block.GrateType;
-import me.bigvirusboi.grates.tileentity.GrateTileEntity;
+import me.bigvirusboi.grates.tileentity.MetalGrateTileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -16,14 +15,14 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class GoldGrateContainer extends Container {
-    public final GrateTileEntity tileEntity;
+    public final MetalGrateTileEntity tileEntity;
     private final IInventory inventory;
 
     public GoldGrateContainer(final int windowId, final PlayerInventory playerInventory, final PacketBuffer data) {
         this(windowId, playerInventory, getTileEntity(playerInventory, data));
     }
 
-    public GoldGrateContainer(final int id, final PlayerInventory playerInventory, final GrateTileEntity tileEntity) {
+    public GoldGrateContainer(final int id, final PlayerInventory playerInventory, final MetalGrateTileEntity tileEntity) {
         super(Registries.GOLD_GRATE_CONTAINER.get(), id);
 
         assertInventorySize(tileEntity, 1);
@@ -35,7 +34,12 @@ public class GoldGrateContainer extends Container {
         int startX = 8;
         int slotSizeP2 = 18;
 
-        this.addSlot(new GrateSlot(tileEntity, 0, 80, 20));
+        this.addSlot(new Slot(tileEntity, 0, 80, 20) {
+            @Override
+            public int getSlotStackLimit() {
+                return 1;
+            }
+        });
 
         // Main Player Inventory
         int startPlayerInvY = 51;
@@ -54,12 +58,12 @@ public class GoldGrateContainer extends Container {
         }
     }
 
-    private static GrateTileEntity getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {
+    private static MetalGrateTileEntity getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final TileEntity tileAtPos = playerInventory.player.world.getTileEntity(data.readBlockPos());
-        if (tileAtPos instanceof GrateTileEntity) {
-            return (GrateTileEntity) tileAtPos;
+        if (tileAtPos instanceof MetalGrateTileEntity) {
+            return (MetalGrateTileEntity) tileAtPos;
         }
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
     }

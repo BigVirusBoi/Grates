@@ -1,6 +1,6 @@
 package me.bigvirusboi.grates.block;
 
-import me.bigvirusboi.grates.Registries;
+import me.bigvirusboi.grates.tileentity.MetalGrateTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -46,13 +46,13 @@ public class GrateBlock extends ContainerBlock {
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return type != GrateType.IRON;
+        return true;
     }
 
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return Registries.GRATE_TILE.get().create();
+        return new MetalGrateTileEntity();
     }
 
     @Override
@@ -78,6 +78,6 @@ public class GrateBlock extends ContainerBlock {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return Registries.GRATE_TILE.get().create();
+        return new MetalGrateTileEntity();
     }
 }
