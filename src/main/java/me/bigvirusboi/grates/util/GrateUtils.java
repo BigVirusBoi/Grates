@@ -1,22 +1,22 @@
 package me.bigvirusboi.grates.util;
 
-import net.minecraft.item.Item;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class GrateUtils {
     // TODO: for when i add phantom slots :)
-    public static Item readFilter(CompoundNBT nbt) {
-        return Registry.ITEM.getOrDefault(new ResourceLocation(nbt.getString("FilterItem")));
+    public static Item readFilter(CompoundTag nbt) {
+        return ForgeRegistries.ITEMS.getValue(new ResourceLocation(nbt.getString("FilterItem")));
     }
 
-    public static void writeFilter(CompoundNBT nbt, Item item) {
-        nbt.putString("FilterItem", item.getRegistryName().toString());
+    public static void writeFilter(CompoundTag nbt, Item item) {
+        nbt.putString("FilterItem", item.getDescriptionId());
     }
 
-    public static CompoundNBT getFilterNBT(CompoundNBT nbt, Item item) {
-        nbt.putString("FilterItem", item.getRegistryName().toString());
+    public static CompoundTag getFilterNBT(CompoundTag nbt, Item item) {
+        nbt.putString("FilterItem", item.getDescriptionId());
         return nbt;
     }
 }

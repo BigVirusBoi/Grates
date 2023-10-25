@@ -1,14 +1,28 @@
 modLoader = "javafml"
-loaderVersion = "[36,)"
-license = "GPL-3.0-only"
-issueTrackerURL="https://github.com/BigVirusBoi/Grates/issues"
+loaderVersion = "${loader_version_range}"
+license = "${mod_license}"
+issueTrackerURL = "https://github.com/BigVirusBoi/Grates/issues"
 
 [[mods]]
-modId = "grates"
-version = "${file.jarVersion}"
-displayName = "Grates"
-#updateJSONURL="http://myurl.me/"
-#displayURL="http://example.com/"
-#logoFile="Grates.png"
-authors = "BigVirusBoi"
-description = '''A mod that adds grates!'''
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+#updateJSONURL = ""
+displayURL = "https://github.com/BigVirusBoi/Grates"
+#logoFile = "logo.png"
+authors = "${mod_authors}"
+description = '''${mod_description}'''
+
+[[dependencies.${ mod_id }]]
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

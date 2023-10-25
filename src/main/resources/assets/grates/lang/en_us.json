@@ -1,4 +1,6 @@
 {
+  "container.grates.gold_grate": "Gold Grate",
+
   "block.grates.iron_grate": "Iron Grate",
   "block.grates.gold_grate": "Gold Grate"
 }

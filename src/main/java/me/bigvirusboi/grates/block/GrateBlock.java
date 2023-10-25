@@ -1,83 +1,79 @@
 package me.bigvirusboi.grates.block;
 
-import me.bigvirusboi.grates.tileentity.MetalGrateTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ContainerBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.GameType;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import me.bigvirusboi.grates.registry.Registries;
+import me.bigvirusboi.grates.block.entity.GrateBlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-public class GrateBlock extends ContainerBlock {
+public class GrateBlock extends BaseEntityBlock {
     private final GrateType type;
     private static final VoxelShape SHAPE = Stream.of(
-            Block.makeCuboidShape(0, 13, 0, 16, 16, 2),
-            Block.makeCuboidShape(0, 13, 14, 16, 16, 16),
-            Block.makeCuboidShape(0, 13, 2, 2, 16, 14),
-            Block.makeCuboidShape(14, 13, 2, 16, 16, 14),
-            Block.makeCuboidShape(1, 13.5, 1, 15, 15.5, 15)
-    ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
+            Block.box(0, 13, 0, 16, 16, 2),
+            Block.box(0, 13, 14, 16, 16, 16),
+            Block.box(0, 13, 2, 2, 16, 14),
+            Block.box(14, 13, 2, 16, 16, 14),
+            Block.box(1, 13.5, 1, 15, 15.5, 15)
+    ).reduce(Shapes::or).get();
 
     public GrateBlock(GrateType type, Properties properties) {
         super(properties);
         this.type = type;
     }
 
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
     @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new MetalGrateTileEntity();
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new GrateBlockEntity(pos, state);
+    }
+
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, Registries.GRATE_BLOCK_ENTITY.get(), GrateBlockEntity::tick);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult result) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (type != GrateType.IRON) {
-            if (worldIn.isRemote) return ActionResultType.SUCCESS;
-            if (((ServerPlayerEntity) player).interactionManager.getGameType() == GameType.ADVENTURE) return ActionResultType.SUCCESS;
+            if (level.isClientSide) return InteractionResult.SUCCESS;
+            if (!player.getAbilities().mayBuild) return InteractionResult.SUCCESS; // TODO adventure mode + check
 
-            INamedContainerProvider tile = this.getContainer(state, worldIn, pos);
-            if (tile != null) {
-                NetworkHooks.openGui((ServerPlayerEntity) player, tile, pos);
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof MenuProvider provider) {
+                NetworkHooks.openScreen((ServerPlayer) player, provider, pos);
             }
 
-            return ActionResultType.CONSUME;
-        } else return ActionResultType.PASS;
+            return InteractionResult.CONSUME;
+        } else return InteractionResult.PASS;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new MetalGrateTileEntity();
     }
 }
