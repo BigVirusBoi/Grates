@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "grates:block/gold_grate"
+    }
+  }
+}

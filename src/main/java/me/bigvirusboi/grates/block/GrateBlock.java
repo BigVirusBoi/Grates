@@ -1,7 +1,7 @@
 package me.bigvirusboi.grates.block;
 
-import me.bigvirusboi.grates.init.MenuInit;
 import me.bigvirusboi.grates.block.entity.GrateBlockEntity;
+import me.bigvirusboi.grates.init.BlockEntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -54,7 +54,7 @@ public class GrateBlock extends BaseEntityBlock {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, MenuInit.GRATE_BLOCK_ENTITY.get(), GrateBlockEntity::tick);
+        return createTickerHelper(type, BlockEntityInit.GRATE_BLOCK_ENTITY.get(), GrateBlockEntity::tick);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         String name = grate.getId().getPath();
         VariantBlockStateBuilder builder = getVariantBuilder(grate.get());
         BlockModelBuilder model = models().getBuilder(name).parent(GRATE)
-                .texture("grate", Grates.getResource("block/" + grate.get()));
+                .texture("grate", Grates.getResource("block/" + key(grate.get()).getPath()));
 
         builder.partialState().addModels(new ConfiguredModel(model));
     }

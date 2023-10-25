@@ -1,0 +1,5 @@
+// 1.20.1	2023-10-25T13:31:42.4843363	Block States: grates
+24dd184a8934349d243ee9de7d0638fc85c932d0 assets/grates/blockstates/gold_grate.json
+37963ca1d3b66e780d94834ed3526a6d2245e5a3 assets/grates/blockstates/iron_grate.json
+737eaf8dd534060d0adf8ce6eb3e81cc9a2de5f1 assets/grates/models/block/gold_grate.json
+e554f80a61ff0aebccfb00c1d1ef4d7746fbd57f assets/grates/models/block/iron_grate.json

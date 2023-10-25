@@ -7,7 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class TileEntityInit {
+public class BlockEntityInit {
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Grates.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<GrateBlockEntity>> GRATE_BLOCK_ENTITY = TILE_ENTITY_TYPES.register("metal_grate", () ->

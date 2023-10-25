@@ -1,0 +1,6 @@
+{
+  "parent": "grates:block/template/grate",
+  "textures": {
+    "grate": "grates:block/iron_grate"
+  }
+}

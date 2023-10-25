@@ -4,7 +4,7 @@ import me.bigvirusboi.grates.client.ClientEventBus;
 import me.bigvirusboi.grates.init.BlockInit;
 import me.bigvirusboi.grates.init.ItemInit;
 import me.bigvirusboi.grates.init.MenuInit;
-import me.bigvirusboi.grates.init.TileEntityInit;
+import me.bigvirusboi.grates.init.BlockEntityInit;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
  - filter item? that can hold many items to filter??? (like create)
  - phantom slots?
  - write a wiki for this (on a big virus boi productions page or something)
+ - remake the textures
  */
 
 @Mod(Grates.MOD_ID)
@@ -38,7 +39,7 @@ public class Grates {
         ItemInit.ITEMS.register(bus);
         BlockInit.BLOCKS.register(bus);
         MenuInit.MENU_TYPES.register(bus);
-        TileEntityInit.TILE_ENTITY_TYPES.register(bus);
+        BlockEntityInit.TILE_ENTITY_TYPES.register(bus);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(ClientEventBus::clientSetup);

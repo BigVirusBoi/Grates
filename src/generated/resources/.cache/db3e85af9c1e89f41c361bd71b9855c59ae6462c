@@ -1,0 +1,5 @@
+// 1.20.1	2023-10-25T13:31:42.4823368	Tags for minecraft:block mod id grates
+60e5de1dadfa7739a9f810bc3bd06269e952b278 data/grates/tags/blocks/grates.json
+4a18109f105ef8e1ae09c76bf024ab574928806f data/minecraft/tags/blocks/mineable/pickaxe.json
+52124f741036c01cd6eed43c330631ac240790f5 data/minecraft/tags/blocks/needs_iron_tool.json
+1fcfe81e89470b5157a812407b024d23afcfe512 data/minecraft/tags/blocks/needs_stone_tool.json
