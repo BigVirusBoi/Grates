@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GoldGrateScreen extends AbstractContainerScreen<GoldGrateMenu> {
-    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Grates.MOD_ID, "textures/gui/container/gold_grate.png");
+    private static final ResourceLocation BACKGROUND_TEXTURE = Grates.getResource("textures/gui/container/gold_grate.png");
 
     public GoldGrateScreen(GoldGrateMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

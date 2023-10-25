@@ -1,6 +1,6 @@
 package me.bigvirusboi.grates.block.entity;
 
-import me.bigvirusboi.grates.registry.Registries;
+import me.bigvirusboi.grates.init.MenuInit;
 import me.bigvirusboi.grates.inventory.GoldGrateMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -23,7 +23,7 @@ public class GrateBlockEntity extends RandomizableContainerBlockEntity implement
     private NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 
     public GrateBlockEntity(BlockPos pos, BlockState state) {
-        super(Registries.GRATE_BLOCK_ENTITY.get(), pos, state);
+        super(MenuInit.GRATE_BLOCK_ENTITY.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, GrateBlockEntity blockEntity) {

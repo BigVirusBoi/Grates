@@ -1,7 +1,7 @@
 package me.bigvirusboi.grates.inventory;
 
 import me.bigvirusboi.grates.block.entity.GrateBlockEntity;
-import me.bigvirusboi.grates.registry.Registries;
+import me.bigvirusboi.grates.init.MenuInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +18,7 @@ public class GoldGrateMenu extends AbstractContainerMenu {
     }
 
     public GoldGrateMenu(final int id, final Inventory inventory, final GrateBlockEntity blockEntity) {
-        super(Registries.GOLD_GRATE_CONTAINER.get(), id);
+        super(MenuInit.GOLD_GRATE_CONTAINER.get(), id);
 
         checkContainerSize(blockEntity, 1);
 

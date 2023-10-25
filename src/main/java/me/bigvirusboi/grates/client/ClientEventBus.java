@@ -1,7 +1,8 @@
 package me.bigvirusboi.grates.client;
 
 import me.bigvirusboi.grates.Grates;
-import me.bigvirusboi.grates.registry.Registries;
+import me.bigvirusboi.grates.init.BlockInit;
+import me.bigvirusboi.grates.init.MenuInit;
 import me.bigvirusboi.grates.client.gui.screen.GoldGrateScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -18,11 +19,11 @@ public class ClientEventBus {
     public static void clientSetup(FMLClientSetupEvent e) {
         e.enqueueWork(() -> {
             // Render Layers
-            ItemBlockRenderTypes.setRenderLayer(Registries.IRON_GRATE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(Registries.GOLD_GRATE.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockInit.IRON_GRATE.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockInit.GOLD_GRATE.get(), RenderType.translucent());
 
             // Screens
-            MenuScreens.register(Registries.GOLD_GRATE_CONTAINER.get(), GoldGrateScreen::new);
+            MenuScreens.register(MenuInit.GOLD_GRATE_CONTAINER.get(), GoldGrateScreen::new);
         });
     }
 }
