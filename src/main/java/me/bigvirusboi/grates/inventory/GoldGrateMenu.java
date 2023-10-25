@@ -11,24 +11,24 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class GoldGrateMenu extends AbstractContainerMenu {
-    public final GrateBlockEntity blockEntity;
+    public final GrateBlockEntity container;
 
     public GoldGrateMenu(int windowId, BlockPos pos, Inventory inventory) {
         this(windowId, inventory, new GrateBlockEntity(pos, inventory.player.level().getBlockState(pos)));
     }
 
-    public GoldGrateMenu(final int id, final Inventory inventory, final GrateBlockEntity blockEntity) {
-        super(MenuInit.GOLD_GRATE_CONTAINER.get(), id);
+    public GoldGrateMenu(final int id, final Inventory inventory, final GrateBlockEntity container) {
+        super(MenuInit.GOLD_GRATE.get(), id);
 
-        checkContainerSize(blockEntity, 1);
+        checkContainerSize(container, 1);
 
-        this.blockEntity = blockEntity;
+        this.container = container;
 
         // Filter Slot
         int startX = 8;
         int slotSizeP2 = 18;
 
-        this.addSlot(new Slot(blockEntity, 0, 80, 20) {
+        this.addSlot(new Slot(container, 0, 80, 20) {
             @Override
             public int getMaxStackSize() {
                 return 1;
@@ -55,16 +55,38 @@ public class GoldGrateMenu extends AbstractContainerMenu {
     @NotNull
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        return ItemStack.EMPTY; // TODO
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+
+        if (slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
+            itemstack = itemstack1.copy();
+
+            if (index < this.container.getContainerSize()) {
+                if (!this.moveItemStackTo(itemstack1, this.container.getContainerSize(), this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(itemstack1, 0, this.container.getContainerSize(), false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.setByPlayer(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+        }
+
+        return itemstack;
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return this.blockEntity.stillValid(player);
+        return this.container.stillValid(player);
     }
 
     public void removed(Player player) {
         super.removed(player);
-        this.blockEntity.stopOpen(player);
+        this.container.stopOpen(player);
     }
 }

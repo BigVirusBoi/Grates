@@ -54,7 +54,7 @@ public class GrateBlock extends BaseEntityBlock {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, BlockEntityInit.GRATE_BLOCK_ENTITY.get(), GrateBlockEntity::tick);
+        return createTickerHelper(type, BlockEntityInit.GRATE.get(), GrateBlockEntity::tick);
     }
 
     @Override

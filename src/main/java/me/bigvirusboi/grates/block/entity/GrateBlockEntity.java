@@ -23,14 +23,14 @@ public class GrateBlockEntity extends RandomizableContainerBlockEntity implement
     private NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 
     public GrateBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityInit.GRATE_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityInit.GRATE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, GrateBlockEntity blockEntity) {
         if (level != null) {
             List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).move(0, 0.75, 0));
             for (ItemEntity entity : entities) {
-                if (blockEntity.getFilterItem() == ItemStack.EMPTY || entity.getItem().getItem() == blockEntity.getFilterItem().getItem()) {
+                if (blockEntity.getFilterItem().isEmpty() || entity.getItem().getItem() == blockEntity.getFilterItem().getItem()) {
                     entity.setPos(pos.getX() + .5, entity.getBlockY() - 0.5, pos.getZ() + .5);
                     entity.setDeltaMovement(0, 0, 0);
                 }

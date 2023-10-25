@@ -23,7 +23,7 @@ public class ClientEventBus {
             ItemBlockRenderTypes.setRenderLayer(BlockInit.GOLD_GRATE.get(), RenderType.translucent());
 
             // Screens
-            MenuScreens.register(MenuInit.GOLD_GRATE_CONTAINER.get(), GoldGrateScreen::new);
+            MenuScreens.register(MenuInit.GOLD_GRATE.get(), GoldGrateScreen::new);
         });
     }
 }

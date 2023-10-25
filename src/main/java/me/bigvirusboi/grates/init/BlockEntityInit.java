@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class BlockEntityInit {
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Grates.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<GrateBlockEntity>> GRATE_BLOCK_ENTITY = TILE_ENTITY_TYPES.register("metal_grate", () ->
+    public static final RegistryObject<BlockEntityType<GrateBlockEntity>> GRATE = TILE_ENTITY_TYPES.register("metal_grate", () ->
             BlockEntityType.Builder.of(GrateBlockEntity::new,
                     BlockInit.IRON_GRATE.get(),
                     BlockInit.GOLD_GRATE.get()
